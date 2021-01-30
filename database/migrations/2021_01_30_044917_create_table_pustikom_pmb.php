@@ -41,23 +41,26 @@ class CreateTablePustikomPmb extends Migration
             $table->text('nama_lengkap');
             $table->string('no_registrasi');
             $table->string('tempat_lahir');
-            $table->string('tanggal_lahir');
+            $table->date('tanggal_lahir');
             $table->enum('gender', ['Laki-laki', 'Perempuan']);
             $table->string('asal_sekolah');
-            $table->string('tahun_lulus');
+            $table->integer('tahun_lulus');
+            $table->string('jurusan');
+            
             $table->enum('agama',['Islam', 'Protestan','Katolik', 'Hindu', 'Budha', 'Konghucu', 'lainnya']);
             $table->string('alamat');
-            $table->string('telepon');
+            $table->string('telpon');
             $table->enum('ukuran_baju', ['XXL', 'XL', 'L', 'M', 'S']);
             $table->enum('pilihan_kelas', ['reguler', 'karyawan']);
             $table->integer('service_baak_id_program_studi');
             $table->integer('service_baak_id_fakultas');
-
-            $table->string('ortu_name');
+            
+            $table->string('ortu_nama');
             $table->string('ortu_telpon');
             $table->string('ortu_alamat');
             $table->string('ortu_pekerjaan');
             
+            // File 
             $table->text('ijazah')->nullable();
             $table->text('passphoto')->nullable();
             $table->text('kartu_keluarga')->nullable();

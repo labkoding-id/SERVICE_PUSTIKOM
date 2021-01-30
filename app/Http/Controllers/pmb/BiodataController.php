@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class BiodataController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->connection = 'PUSTIKOM_PMB';
@@ -19,9 +19,9 @@ class BiodataController extends Controller
     public function all(int $limit = 0)
     {
         $query = Model::with('maba')->latest();
-        if($limit !== 0){
+        if ($limit !== 0) {
             $results = $query->limit($limit)->get();
-        }else{
+        } else {
             $results = $query->get();
         }
         return $this->res($this->db_name, $results);
@@ -37,10 +37,10 @@ class BiodataController extends Controller
 
     public function store()
     {
-       
+
         DB::connection($this->connection)->beginTransaction();
         try {
-            
+
             $results = Model::create(request()->all());
             DB::connection($this->connection)->commit();
             return $this->res($this->db_name, $results);
@@ -54,7 +54,7 @@ class BiodataController extends Controller
     {
         $exec = Model::find($id);
 
-        if($exec === null){
+        if ($exec === null) {
             return $this->res($this->db_name);
         }
 
@@ -67,15 +67,14 @@ class BiodataController extends Controller
             DB::connection($this->connection)->rollback();
             return $this->res_error($this->db_name, $e->getMessage());
         }
-        
     }
 
-    
+
     public function delete($id)
     {
         $exec = Model::find($id);
 
-        if($exec === null){
+        if ($exec === null) {
             return $this->res($this->db_name);
         }
 
@@ -87,6 +86,6 @@ class BiodataController extends Controller
         } catch (Exception $e) {
             DB::connection($this->connection)->rollback();
             return $this->res_error($this->db_name, $e->getMessage());
-        }   
+        }
     }
 }

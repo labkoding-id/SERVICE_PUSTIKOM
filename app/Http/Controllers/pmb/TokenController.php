@@ -35,7 +35,6 @@ class TokenController extends Controller
     {
 
         $result = Model::with('maba')->find($id);
-
         return $this->res($this->db_name, $result);
     }
 
