@@ -5,7 +5,7 @@
 $router->group(['prefix' => 'pmb'], function () use ($router) {
 
     $router->group(['prefix' => 'biodata'], function () use ($router) {
-        $router->get('all', 'pmb\BiodataController@all');
+        $router->get('all/{limit}', 'pmb\BiodataController@all');
         $router->post('store', 'pmb\BiodataController@store');
         $router->get('{id}/show', 'pmb\BiodataController@show');
         $router->patch('{id}/update', 'pmb\BiodataController@update');
@@ -13,7 +13,7 @@ $router->group(['prefix' => 'pmb'], function () use ($router) {
     });
 
     $router->group(['prefix' => 'token'], function () use ($router) {
-        $router->get('all', 'pmb\TokenController@all');
+        $router->get('all/{limit}', 'pmb\TokenController@all');
         $router->post('store', 'pmb\TokenController@store');
         $router->get('{id}/show', 'pmb\TokenController@show');
         $router->patch('{id}/update', 'pmb\TokenController@update');
@@ -21,7 +21,7 @@ $router->group(['prefix' => 'pmb'], function () use ($router) {
     });
 
     $router->group(['prefix' => 'maba'], function () use ($router) {
-        $router->get('all', 'pmb\CalonMahasiswaController@all');
+        $router->get('all/{limit}', 'pmb\CalonMahasiswaController@all');
         $router->post('store', 'pmb\CalonMahasiswaController@store');
         $router->get('{id}/show', 'pmb\CalonMahasiswaController@show');
         $router->patch('{id}/update', 'pmb\CalonMahasiswaController@update');

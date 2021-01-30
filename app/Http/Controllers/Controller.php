@@ -30,6 +30,7 @@ class Controller extends BaseController
     }
 
     public function res_error($db_name, $result){
+       
         return response()->json([
             'service_name' => 'SERVICE PUSTIKOM',
             'code' => 301,
@@ -37,6 +38,8 @@ class Controller extends BaseController
             'result' => $result
         ]);
     }
+
+  
 
    
 }

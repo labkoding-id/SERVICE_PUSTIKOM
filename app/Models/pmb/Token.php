@@ -60,4 +60,8 @@ class Token extends Model
         $password   = substr($random, 0, 8);
         return $password;
     }
+
+    public function maba(){
+        return $this->hasOne(CalonMahasiswa::class, 'token_id');
+    }
 }

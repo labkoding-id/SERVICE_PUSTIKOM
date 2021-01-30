@@ -10,4 +10,13 @@ class CalonMahasiswa extends Model
     protected $connection = 'PUSTIKOM_PMB';
     protected $table = 'calon_mahasiswa';
     protected $guarded = [];
+
+
+    public function biodata(){
+        return $this->belongsTo(Biodata::class);
+    }
+
+    public function token(){
+        return $this->belongsTo(Token::class);
+    }
 }

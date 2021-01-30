@@ -15,8 +15,8 @@ class CreateTablePustikomPmb extends Migration
     {
         Schema::connection('PUSTIKOM_PMB')->create('tokens', function (Blueprint $table) {
             $table->integer('id', true, true);
-            $table->text('email');
-            $table->text('token');
+            $table->string('email')->unique();
+            $table->string('token', 50)->unique();
             $table->text('password');
             $table->integer('angkatan');
             $table->integer('gelombang');
@@ -29,7 +29,7 @@ class CreateTablePustikomPmb extends Migration
             $table->integer('id', true, true);
             $table->bigInteger('biodata_id');
             $table->bigInteger('token_id');
-            $table->text('email');
+            $table->string('email')->unique();
             $table->text('password');
             $table->timestamps();
             

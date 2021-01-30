@@ -20,22 +20,28 @@ class TokenController extends Controller
         $this->db_name    = env("DB_PUSTIKOM_PMB");
     }
 
-    public function all()
+    public function all(int $limit = 0)
     {
-        $results = Model::latest()->get();
+        $results = Model::with('maba')->latest();
+        if($limit !== 0){
+            $results->limit($limit)->get();
+        }else{
+            $results->get();
+        }
         return $this->res($this->db_name, $results);
     }
 
     public function show($id)
     {
 
-        $result = Model::find($id);
+        $result = Model::with('maba')->find($id);
 
         return $this->res($this->db_name, $result);
     }
 
     public function store()
     {
+       
         DB::connection($this->connection)->beginTransaction();
         try {
             $results = Model::create(request()->all());
@@ -64,7 +70,6 @@ class TokenController extends Controller
             DB::connection($this->connection)->rollback();
             return $this->res_error($this->db_name, $e->getMessage());
         }
-        
     }
 
     
