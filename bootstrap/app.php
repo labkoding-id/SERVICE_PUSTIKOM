@@ -18,9 +18,12 @@ date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
 | application as an "IoC" container and router for this framework.
 |
 */
+// $app = new Laravel\Lumen\Application(
+//     realpath(__DIR__.'/../')
+// );
 
-$app = new Laravel\Lumen\Application(
-    dirname(__DIR__)
+$app = new ElemenX\AdvancedRoute\Application(
+    realpath(__DIR__.'/../')
 );
 
 $app->withFacades();

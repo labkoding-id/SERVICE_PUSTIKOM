@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "71cba34bd029f43089e367c85e42b531",
+    "content-hash": "a5a1a46d162271776bb76fa573f9aa50",
     "packages": [
         {
             "name": "brick/math",
@@ -385,6 +385,51 @@
                 "validator"
             ],
             "time": "2020-12-29T14:50:06+00:00"
+        },
+        {
+            "name": "elemenx/lumen-advanced-route",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elemenx/lumen-advanced-route.git",
+                "reference": "3a39a3cb0dbfb371a1d750a664ad61a9da8c4a1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elemenx/lumen-advanced-route/zipball/3a39a3cb0dbfb371a1d750a664ad61a9da8c4a1a",
+                "reference": "3a39a3cb0dbfb371a1d750a664ad61a9da8c4a1a",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/lumen-framework": "^8.0",
+                "php": ">=7.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ElemenX\\AdvancedRoute\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "BranchZero Sun",
+                    "email": "branchzero@gmail.com"
+                }
+            ],
+            "description": "Add Support For Nested Group && Resource.",
+            "keywords": [
+                "Match",
+                "any",
+                "elemenx",
+                "group",
+                "lumen",
+                "route"
+            ],
+            "time": "2021-01-27T06:20:29+00:00"
         },
         {
             "name": "flipbox/lumen-generator",

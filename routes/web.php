@@ -1,34 +1,20 @@
 <?php
 
 
-// PMB ROUTE START
-$router->group(['prefix' => 'pmb'], function () use ($router) {
+$router->get('/', function() {
+    return response()->json('SERVICE_PUSTIKOM',200);
+});
 
-    $router->group(['prefix' => 'biodata'], function () use ($router) {
-        $router->get('all/{limit}', 'pmb\BiodataController@all');
-        $router->post('store', 'pmb\BiodataController@store');
-        $router->get('{id}/show', 'pmb\BiodataController@show');
-        $router->patch('{id}/update', 'pmb\BiodataController@update');
-        $router->delete('{id}/delete', 'pmb\BiodataController@delete');
-    });
-
-    $router->group(['prefix' => 'token'], function () use ($router) {
-        $router->get('all/{limit}', 'pmb\TokenController@all');
-        $router->post('store', 'pmb\TokenController@store');
-        $router->get('{id}/show', 'pmb\TokenController@show');
-        $router->patch('{id}/update', 'pmb\TokenController@update');
-        $router->delete('{id}/delete', 'pmb\TokenController@delete');
-    });
-
-    $router->group(['prefix' => 'maba'], function () use ($router) {
-        $router->get('all/{limit}', 'pmb\CalonMahasiswaController@all');
-        $router->post('store', 'pmb\CalonMahasiswaController@store');
-        $router->get('{id}/show', 'pmb\CalonMahasiswaController@show');
-        $router->patch('{id}/update', 'pmb\CalonMahasiswaController@update');
-        $router->delete('{id}/delete', 'pmb\CalonMahasiswaController@delete');
-    });
+$router->get('/key', function() {
+    return \Illuminate\Support\Str::random(32);
 });
 
 
+// // PMB ROUTE START
 
+$router->group(['prefix' => 'pmb'], function () use ($router) {
+	$router->resource('calon-mahasiswa/biodata', 'pmb\BiodataController', ['except' => ['edit', 'create']]);
+	$router->resource('token-pendaftaran', 'pmb\TokenController', ['except' => ['edit', 'create']]);
+	$router->resource('calon-mahasiswa', 'pmb\CalonMahasiswaController', ['except' => ['edit', 'create']]);
+});
 // PMB ROUTE END

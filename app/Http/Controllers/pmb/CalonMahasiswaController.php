@@ -4,8 +4,8 @@ namespace App\Http\Controllers\pmb;
 
 use App\Http\Controllers\Controller;
 use App\Models\pmb\CalonMahasiswa as Model;
-use Exception;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
+use Symfony\Component\HttpFoundation\Response;
 
 class CalonMahasiswaController extends Controller
 {
@@ -24,67 +24,56 @@ class CalonMahasiswaController extends Controller
         }else{
             $results->get();
         }
-        return $this->res($this->db_name, $results);
+        return $this->res($this->db_name, $results, Response::HTTP_OK);
+    }
+
+    public function index()
+    {
+        $results = Model::with(['biodata', 'token'])->latest()->get();
+        
+        return $this->res($this->db_name, $results, Response::HTTP_OK);
     }
 
     public function show($id)
     {
+        $result = Model::with(['biodata', 'token'])->findOrFail($id);
 
-        $result = Model::with(['biodata', 'token'])->find($id);
-
-        return $this->res($this->db_name, $result);
+        return $this->res($this->db_name, $result, Response::HTTP_OK);
     }
 
     public function store()
     {
-        DB::connection($this->connection)->beginTransaction();
         try {
             $results = Model::create(request()->all());
-            DB::connection($this->connection)->commit();
-            return $this->res($this->db_name, $results);
-        } catch (Exception $e) {
-            DB::connection($this->connection)->rollback();
-            return $this->res_error($this->db_name, $e->getMessage());
+            return $this->res($this->db_name, $results, Response::HTTP_CREATED);
+        } catch (QueryException $e) {
+            return $this->res_error($this->db_name, $e->errorInfo[2],  Response::HTTP_UNPROCESSABLE_ENTITY);
         }
     }
 
     public function update($id)
     {
-        $exec = Model::find($id);
+        $query = Model::findOrFail($id);
 
-        if($exec === null){
-            return $this->res($this->db_name);
-        }
-
-        DB::connection($this->connection)->beginTransaction();
         try {
-            $results = $exec->update(request()->all());
-            DB::connection($this->connection)->commit();
-            return $this->res($this->db_name, $results);
-        } catch (Exception $e) {
-            DB::connection($this->connection)->rollback();
-            return $this->res_error($this->db_name, $e->getMessage());
+            $results = $query->update(request()->all());
+            return $this->res($this->db_name, $results, Response::HTTP_OK);
+        } catch (QueryException $e) {
+            return $this->res_error($this->db_name, $e->errorInfo[2],  Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        
     }
 
-    
+
     public function delete($id)
     {
-        $exec = Model::find($id);
+        $query = Model::findOrFail($id);
 
-        if($exec === null){
-            return $this->res($this->db_name);
-        }
-
-        DB::connection($this->connection)->beginTransaction();
         try {
-            $results = $exec->delete();
-            DB::connection($this->connection)->commit();
-            return $this->res($this->db_name, $results);
-        } catch (Exception $e) {
-            DB::connection($this->connection)->rollback();
-            return $this->res_error($this->db_name, $e->getMessage());
-        }   
+            $results = $query->delete();
+            return $this->res($this->db_name, $results, Response::HTTP_OK);
+        } catch (QueryException $e) {
+          
+            return $this->res_error($this->db_name, $e->errorInfo[2], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 }
